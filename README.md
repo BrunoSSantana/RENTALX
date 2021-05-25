@@ -63,10 +63,31 @@ Para instalar esse projeto localmente, é necessário que você possua as seguin
 http://localhost:3333/categories
 > Aqui vamos receber o nome e o email do usuário
 
+O que se espera ser enviado pelo cliente nesta rota:
+```JSON
+{
+  "name": "CategoryTest",
+  "description": "Category description test"
+}
+```
+
 **GET**
 http://localhost:3333/categories
 > Aqui será listada todos as categorias
 
+O que se espera ser recebido pelo cliente nesta rota:
+```JSON
+[
+  {
+    "name": "string",
+    "description": "string"
+  },
+  {
+    "name": "string",
+    "description": "string"
+  }
+]
+```
 </details>
 
 
