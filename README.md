@@ -18,7 +18,6 @@
  <a href="#contribuition">Contribuition</a> •
  <a href="#author">Author</a> • 
  <a href="#license">License</a> • 
- <a href="#author">Author</a> • 
  <a href="#acknowledgements">Acknowledgements</a>
 </p>
 
@@ -36,7 +35,6 @@
 Para instalar esse projeto localmente, é necessário que você possua as seguinte ferramentas em sua máquina.
 
 - [x] [Nodejs](https://nodejs.org/en/)
-- [x] [yarn](https://yarnpkg.com/)
 - [x] [Mongodb](https://www.mongodb.com/)
 
 ### Installation
@@ -49,6 +47,7 @@ Para instalar esse projeto localmente, é necessário que você possua as seguin
    ```sh
    yarn
    ```
+3. Start o mongo
 
 ## Routes
 *Atualmente contamos com as seguintes rotas:*
