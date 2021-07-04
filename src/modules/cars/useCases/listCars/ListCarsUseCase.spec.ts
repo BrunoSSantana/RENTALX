@@ -28,7 +28,7 @@ describe("List Cars", () => {
     expect(cars).toEqual([car]);
   });
 
-  it("should be able to list all available cars by name", async () => {
+  it("should be able to list all available cars by brand", async () => {
     const car = await carsRepositoryInMemory.create({
       name: "Car2",
       brand: "Car_brand_test",
