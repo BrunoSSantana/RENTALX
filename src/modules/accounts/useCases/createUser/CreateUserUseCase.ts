@@ -5,8 +5,6 @@ import { ICreateUserDTO } from "@modules/accounts/dtos/ICreateUserDTO";
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppErrors";
 
-// console.log("CreateUserUseCase");
-
 @injectable()
 class CreateUserUseCase {
   constructor(
