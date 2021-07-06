@@ -47,7 +47,7 @@ class Car {
   @JoinTable({
     name: "specifications_cars",
     joinColumns: [{ name: "car_id" }],
-    inverseJoinColumns: [{ name: "specifications_cars" }],
+    inverseJoinColumns: [{ name: "specification_id" }],
   })
   specifications: Specification[];
 
