@@ -11,7 +11,8 @@ let rentalsRepositoryInMemory: RentalsRepositoryInMemory;
 let dayjsDateProvider: DayjsDateProvider;
 
 describe("Create Rental", () => {
-  const dayAdd24Hours = dayjs().add(1, "day").toDate();
+  const dayAdd48Hours = dayjs().add(2, "day").toDate();
+  console.log(dayAdd48Hours);
 
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
@@ -25,7 +26,7 @@ describe("Create Rental", () => {
   it("should be able  to create a new rental", async () => {
     const rental = await createRentalUsecase.execute({
       car_id: "123212",
-      expected_return_date: dayAdd24Hours,
+      expected_return_date: dayAdd48Hours,
       user_id: "452365",
     });
 
@@ -40,12 +41,12 @@ describe("Create Rental", () => {
       await createRentalUsecase.execute({
         car_id: "123212",
         user_id: "452365",
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
       });
 
       await createRentalUsecase.execute({
         car_id: "123212",
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
         user_id: "452365",
       });
     }).rejects.toBeInstanceOf(AppError);
@@ -56,13 +57,13 @@ describe("Create Rental", () => {
       await createRentalUsecase.execute({
         user_id: "341290",
         car_id: "test",
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
       });
 
       await createRentalUsecase.execute({
         user_id: "452365",
         car_id: "test",
-        expected_return_date: dayAdd24Hours,
+        expected_return_date: dayAdd48Hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
