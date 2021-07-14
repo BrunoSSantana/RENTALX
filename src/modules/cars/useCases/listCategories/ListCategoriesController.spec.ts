@@ -34,9 +34,8 @@ describe("List category Controller", () => {
     });
 
     const { token } = responseToken.body;
-    console.log(token);
 
-    const result = await request(app)
+    await request(app)
       .post("/categories")
       .send({
         name: "Category Supertest",
@@ -46,11 +45,7 @@ describe("List category Controller", () => {
         Authorization: `Bearer ${token}`,
       });
 
-    console.log(result.body);
-
     const response = await request(app).get("/categories");
-
-    console.log(response.body);
 
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(1);

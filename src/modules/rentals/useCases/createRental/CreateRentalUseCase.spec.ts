@@ -12,7 +12,6 @@ let dayjsDateProvider: DayjsDateProvider;
 
 describe("Create Rental", () => {
   const dayAdd48Hours = dayjs().add(2, "day").toDate();
-  console.log(dayAdd48Hours);
 
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
@@ -33,7 +32,7 @@ describe("Create Rental", () => {
     expect(rental).toHaveProperty("id");
     expect(rental).toHaveProperty("start_date");
   });
-  // 02
+
   it("should not be able to create a new rental if there is another opento to the same user", async () => {
     expect(async () => {
       await createRentalUsecase.execute({
@@ -49,7 +48,7 @@ describe("Create Rental", () => {
       });
     }).rejects.toBeInstanceOf(AppError);
   });
-  // 03
+
   it("should not be able to create a new rental if there is another opento to the same car", async () => {
     expect(async () => {
       await createRentalUsecase.execute({
@@ -65,7 +64,7 @@ describe("Create Rental", () => {
       });
     }).rejects.toBeInstanceOf(AppError);
   });
-  // 04
+
   it("should not be able to create a new rental with invalid return time", async () => {
     expect(async () => {
       await createRentalUsecase.execute({
