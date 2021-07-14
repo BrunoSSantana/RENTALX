@@ -30,8 +30,6 @@ describe("Create Rental", () => {
       user_id: "452365",
     });
 
-    console.log(rental);
-
     expect(rental).toHaveProperty("id");
     expect(rental).toHaveProperty("start_date");
   });
