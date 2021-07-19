@@ -49,7 +49,6 @@ class CreateRentalUseCase {
     if (rentalOpenToUser) {
       throw new AppError("There's a rental in progress for user");
     }
-    // O alguel dever ter duração mínima de 24horas
 
     const dateNow = this.dateProvider.dateNow();
 
