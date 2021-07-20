@@ -12,7 +12,7 @@ export class CreateUsersToken1626716982571 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: "refres_token",
+            name: "refresh_token",
             type: "varchar",
           },
           {
