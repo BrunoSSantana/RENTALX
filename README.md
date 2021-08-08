@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Foodfy" src="./assets/RentalX.png"/>
+    <img id="rentalx" alt="Foodfy" src="./assets/RentalX.png"/>
 </p>
 
 
@@ -49,28 +49,113 @@ Para instalar esse projeto localmente, é necessário que você possua as seguin
    ```
 3. Start o mongo
 
+## Resources
+
+Recursos disponíveis para acesso via API:
+
+- Password
+- Authenticate
+- Rentals
+- Cars
+- Users
+- Specifications
+- Categories
+
+## Methods
+
+Requisições para a API devem seguir os padrões:
+
+| Método | Descrição |
+|---|---|
+| `GET` | Retorna informações de um ou mais registros. |
+| `POST` | Utilizado para criar um novo registro. |
+| `PATCH` | Atualiza pontualmente dados de um registro. |
+
+
+
+## Responses
+
+| Código | Descrição |
+|---|---|
+| `200` | Requisição executada com sucesso (success).|
+| `400` | Erros de validação ou os campos informados não existem no sistema.|
+| `401` | Dados de acesso inválidos.|
+| `404` | Registro pesquisado não encontrado (Not found).|
+| `429` | Número máximo de requisições atingido. (*aguarde alguns segundos e tente novamente*)|
+
+
+
 ## Routes
-*Atualmente contamos com as seguintes rotas:*
 
+### Users [/users]
+Usuários da plataforma
+#### Novo Usuário (Create) [POST]
 
-<details>
-  <summary><strong>CATEGORIES</strong></summary>
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "name": "Bruno Santana",
+    "username": "bruno",
+    "email": "bruno@gmail.com",
+    "password": "123",
+    "driver_license": "123456"
+  }
+  ```
+- Response 200 (application/json)
+  - body
+  ```JSON
+  ```
 
+#### Listar Usuários (List) [GET] 
 
-**POST/**
+#### Mudar Avatar (Update) [PATCH]
 
-http://localhost:3333/categories
+### Password [/password]
+#### Solicitar mudança de email (Send) [POST]
+
+#### Redefenir senha (Update) [POST]
+### Authenticate [/]
+#### Session (Create) [POST]
+#### Refresh Token (Update) [POST]
+
+### Rentals [/rentals]
+#### Listar por Usuário (List) [GET]
+#### Devolução de Carro (Update) [POST]
+
+### Cars
+#### Novo Carro (Create) [POST]
+#### Adicionar Especificação (Add) [POST]
+#### Adicionar Imagem (Add) [POST]
+#### Listar Carros Disponíveis (List) [POST]
+### Speficications [/specifications]
+#### Nova Especificação (Create) [POST]
+#### Listar Especificação (List) [GET]
+### Categories [/categories]
+#### Novo (Create) [POST]
 > Aqui vamos receber o nome e o email do usuário
 
-O que se espera ser enviado pelo cliente nesta rota:
-```JSON
-{
-  "name": "CategoryTest",
-  "description": "Category description test"
-}
-```
+- Request (application/json)
+  - Body
+  ```JSON
+  {
+    "name": "CategoryTest",
+    "description": "Category description test"
+  }
+  ```
+- Response 200 (application/json)
+  - Body
+  ```JSON
+  
+  ```
 
-**GET**
+#### Importar (Import) [POST]
+
+- Request ()
+  - Headers
+Response 200 (application)
+
+#### Listar (List) [GET]
 http://localhost:3333/categories
 > Aqui será listada todos as categorias
 
@@ -87,7 +172,8 @@ O que se espera ser recebido pelo cliente nesta rota:
   }
 ]
 ```
-</details>
+
+
 
 
 ## Contribuition
@@ -127,7 +213,7 @@ Feito com :purple_heart: por Bruno Santana 👋🏽
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
 
-[⬆ Voltar ao topo](#nome-do-projeto)<br>
+[⬆ Voltar ao topo](#rentalx)<br>
 
 
 <h4 align="center"> 
