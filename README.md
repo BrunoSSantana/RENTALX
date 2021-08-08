@@ -176,7 +176,7 @@ O que se espera ser recebido pelo cliente nesta rota:
 
 
 
-## Contribuition
+<!-- ## Contribuition
 
 ### Como contribuir?
 Este é um projeto totalmente livre que aceita contribuições via pull requests no GitHub. Este documento tem a responsabilidade de alinhar as contribuições de acordo com os padrões estabelecidos no mesmo. Padrões recomendados por [gitmoji](https://gitmoji.dev/).
@@ -189,7 +189,7 @@ Para contribuir com RentalX, siga estas etapas:
 4. Envie as suas alterações: `git push origin my-awesome-feature`
    > Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions)
 
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request). -->
 
 ## Author
 <a href="https://github.com/BrunoSSantana/">
