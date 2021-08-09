@@ -26,10 +26,6 @@
 *Este projeto que está sendo construindo, consiste em uma API com a finalidade do gerenciamento de uma locadora de caros*
 
 
-
-
-
-
 ## Getting Started
 
 Para instalar esse projeto localmente, é necessário que você possua as seguinte ferramentas em sua máquina.
@@ -47,7 +43,18 @@ Para instalar esse projeto localmente, é necessário que você possua as seguin
    ```sh
    yarn
    ```
-3. Start o mongo
+3. Start data base
+```sh
+docker-compose up
+```
+4. Create Tables
+```sh
+yarn typeorm migration:run
+```
+5. Start aplication
+```sh
+yarn dev
+```
 
 ## Resources
 
