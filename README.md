@@ -73,7 +73,7 @@ Requisições para a API devem seguir os padrões:
 
 
 
-## Responses
+## Rsponses
 
 | Código | Descrição |
 |---|---|
@@ -91,6 +91,8 @@ Requisições para a API devem seguir os padrões:
 Usuários da plataforma
 #### Novo Usuário (Create) [POST]
 
+- URL: `/user`
+
 - Request (application/json)
   - body
   ```JSON
@@ -102,12 +104,18 @@ Usuários da plataforma
     "driver_license": "123456"
   }
   ```
-- Response 200 (application/json)
+- Response 201 (No Content)
+
+- Response 400 (application/json)
   - body
   ```JSON
+  {
+    "message": "Users already Exists"
+  }
   ```
 
-#### Listar Usuários (List) [GET] 
+#### Listar Usuários (List) [GET]
+- URL: `/users/profile`
 - Request (application/json)
   - Headers
   ```
@@ -132,22 +140,16 @@ Usuários da plataforma
     "message": "Invalid Token"
   }
   ```
-- Response 401 (application/json)
-  - body
-  ```JSON
-  {
-    "message": "Missing Token"
-  }
-  ```
 
 #### Mudar Avatar do Usuário (Update) [PATCH]
-- Request (application/json)
-  - body
-- response 200 (application/json)
-  - body
+- URL: `/users/avatar`
+- Request (multipart/form-data)
+  - Multipart = avatart
+- Response 204 (No Content)
 
 ### Password [/password]
 #### Solicitar mudança de senha (Send) [POST]
+- URL: `/password/forgot`
 - Request (application/json)
   - body
   ```JSON
@@ -155,10 +157,17 @@ Usuários da plataforma
 	  "email": "useremail@example.com"
   }
   ```
-- response 200 (application/json)
-
+- Response 200 (No Body)
+- Response 400 (application/json)
+  - body
+  ```JSON
+  {
+    "message": "User does not exists"
+  }
+  ```
 
 #### Redefenir senha (Update) [POST]
+- URL: `/password/reset?token=:token`
 - Request (application/json)
   - body
   ```JSON
@@ -166,10 +175,13 @@ Usuários da plataforma
     "password": "senha123"
   }
   ```
-- response 200 (application/json)
+  - Query
+  ```/password/reset?token=5aaea858-b1be-4833-833c-ad8f476b8db8```
+- Response 200 (No body)
 
 ### Authenticate [/]
 #### Session (Create) [POST]
+- URL: `/sessions `
 - Request (application/json)
   - body
   ```JSON
@@ -178,7 +190,7 @@ Usuários da plataforma
 	  "password": "senha123"
   }
   ```
-- response 200 (application/json)
+- Response 200 (application/json)
   - body
   ```JSON
   {
@@ -190,8 +202,16 @@ Usuários da plataforma
     "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNTgzLCJleHAiOjE2Mjk5ODI1ODMsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.qgxEY1Ka3SbGfzzkKZI73WadeNgOQp3M3eJcf8ygW34"
   }
   ```
+- Response 400 (application/json)
+  -body
+  ```JSON
+  {
+    "message": "Email or password incorrect!"
+  }
+  ```
 
 #### Refresh Token (Update) [POST]
+- URL: `/refresh-token`
 - Request (application/json)
   - body
   ```JSON
@@ -199,13 +219,296 @@ Usuários da plataforma
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNTgzLCJleHAiOjE2Mjk5ODI1ODMsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.qgxEY1Ka3SbGfzzkKZI73WadeNgOQp3M3eJcf8ygW34"
   }
   ```
-- response 200 (application/json)
+- Response 200 (application/json)
   - body
   ```JSON
   {
     "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNjI1LCJleHAiOjE2Mjk5ODI2MjUsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.Hf44nhYy4jHDqoxIsgpRrdhBYyFuOegOzD7UeqNFemE",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjczOTA2MjUsImV4cCI6MTYyNzU2MzQyNSwic3ViIjoiODJkYzRmZGMtMDUwOC00YzBlLThiOGYtNmRkZmQwMzFlYjQwIn0.WzU9RwZA3mUxJk0Vc97aUf8ubd9p9zlwAtCDjVGAZh8"
   }
+  ```
+- Response 500 (Internal Server Error)
+  - body
+  ```JSON
+  {
+    "status": "error",
+    "message": "Internal server error - invalid signature"
+  }
+  ```
+
+### Speficications [/specifications]
+#### Nova Especificação (Create) [POST]
+- URL: `/specifications/`
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "name": "3 portas",
+    "description": "carro com 2 portas"
+  }
+  ```
+    - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- Response 201 (Created)
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "Specification already exists"
+  }
+  ```
+
+<!-- #### Listar Especificação (List) [GET]
+- URL: `/specifications/`
+- Request (application/json)
+  - body
+- Response 200 (application/json)
+  - body -->
+
+### Categories [/categories]
+#### Novo (Create) [POST]
+- URL: `/categories`
+- Request (application/json)
+  - Body
+  ```JSON
+  {
+    "name": "CategoryTest",
+    "description": "Category description test"
+  }
+  ```
+- Response 201 (Created)
+
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+
+#### Importar (Import) [POST]
+- URL: `/categories/import`
+- Request (multipart/form-data)
+  - Multipart = file
+- Response 201 (Created)
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+
+#### Listar (List) [GET]
+- URL: `/categories`
+- Request (No Content)
+- Response 200 (application/json)
+  - body
+  ```JSON
+  [
+    {
+      "id": "950261bc-86af-4c96-8256-e0a3771a7ea8",
+      "name": "nova categoria",
+      "description": "Categoria de carrão",
+      "created_at": "2021-08-09T21:01:41.060Z"
+    }
+  ]
+  ```
+
+### Cars [/cars]
+#### Novo Carro (Create) [POST]
+- URL: `/cars`
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+    "daily_rate": 140,
+    "description": "Carro massa",
+    "fine_amount": 100,
+    "license_plate": "DFG-4454",
+    "name": "Audi A4"
+  }
+  ```
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- Response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
+    "available": true,
+    "name": "Audi A4",
+    "description": "Carro massa",
+    "daily_rate": 140,
+    "license_plate": "DFG-4454",
+    "fine_amount": 100,
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0"
+  }
+  ```
+- Response 201 (Created)
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "Car already exists!"
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+
+#### Adicionar Especificação (Add) [POST]
+- URL: `/cars/specifications/:id`
+- URL Params [:id=car_id]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "specifications_id": [
+      "f11355c6-8b70-4641-a9cb-f6a7f00a3b94"
+    ]
+  }
+  ```
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- Response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+    "available": true,
+    "name": "Audi GTX",
+    "description": "Carro massa",
+    "daily_rate": "140",
+    "license_plate": "DFG-1256",
+    "fine_amount": "100",
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+    "created_at": "2021-07-03T23:39:11.725Z",
+    "specifications": [
+      {
+        "id": "f11355c6-8b70-4641-a9cb-f6a7f00a3b94",
+        "name": "Direção elétrico",
+        "description": "carro com câmbio automático",
+        "created_at": "2021-06-19T23:54:11.655Z"
+      }
+    ]
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
+  ```
+- Response 401 (Unauthorized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "Car doesn't exist!"
+  }
+  ```
+
+#### Adicionar Imagem (Add) [POST]
+- URL: `/cars/images/:id`
+- URL Params [:id=car_id]
+- Request (multipart/form-data)
+  - Multipart = [images]
+
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- Response 201 (Created)
+
+#### Listar Carros Disponíveis (List) [POST]
+- URL: `/cars/available?:key=:value`
+- URL Query [brand||category_id||name]
+- Request (application/json)
+  - URL example: `/cars/available?brand=Audi`
+- Response 200 (application/json)
+  - body
+  ```JSON
+  [
+    {
+      "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+      "available": true,
+      "name": "Audi GTX",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-1256",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-03T23:39:11.725Z"
+    },
+    {
+      "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
+      "available": true,
+      "name": "Audi A4",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-4454",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-04T14:18:22.984Z"
+    },
+    {
+      "id": "f82e77a3-0aa7-47a8-b131-cf162cad30f2",
+      "available": true,
+      "name": "Audi A3",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-1254",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-04T14:15:36.849Z"
+    }
+  ]
   ```
 
 ### Rentals [/rentals]
@@ -225,7 +528,7 @@ Usuários da plataforma
   Authorization: Bearer [access_token]
   ```
 
-- response 200 (application/json)
+- Response 201 (application/json)
   - body
   ```JSON
   {
@@ -237,13 +540,27 @@ Usuários da plataforma
     "updated_at": "2021-07-18T18:26:58.965Z"
   }
   ```
+- Response 401 (Unauthirized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "Invalid return time!"
+  }
+  ```
 #### Listar por Usuário (List) [GET]
 - Request (application/json)
   - Headers
   ```
   Authorization: Bearer [access_token]
   ```
-- response 200 (application/json)
+- Response 200 (application/json)
   - body
   ```JSON
   [
@@ -303,7 +620,7 @@ Usuários da plataforma
   ```
   /rentals/devolution/9e5c0e72-38f3-4a35-bdb4-55d99a9e6abd
   ```
-- response 200 (application/json)
+- Response 200 (application/json)
   - body
   ```JSON
   {
@@ -319,198 +636,6 @@ Usuários da plataforma
   }
   ```
 
-### Cars [/cars]
-#### Novo Carro (Create) [POST]
-- URL: `/cars`
-- Request (application/json)
-  - body
-  ```JSON
-  {
-    "brand": "Audi",
-    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-    "daily_rate": 140,
-    "description": "Carro massa",
-    "fine_amount": 100,
-    "license_plate": "DFG-4454",
-    "name": "Audi A4"
-  }
-  ```
-  - Headers
-  ```
-  Authorization: Bearer [access_token_admin]
-  ```
-
-- response 200 (application/json)
-  - body
-  ```JSON
-  {
-    "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
-    "available": true,
-    "name": "Audi A4",
-    "description": "Carro massa",
-    "daily_rate": 140,
-    "license_plate": "DFG-4454",
-    "fine_amount": 100,
-    "brand": "Audi",
-    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0"
-  }
-  ```
-
-#### Adicionar Especificação (Add) [POST]
-- URL: `/cars/specifications/:id`
-- URL Params [:id=car.id]
-- Request (application/json)
-  - body
-  ```JSON
-  {
-    "specifications_id": [
-      "f11355c6-8b70-4641-a9cb-f6a7f00a3b94"
-    ]
-  }
-  ```
-  - Headers
-  ```
-  Authorization: Bearer [access_token_admin]
-  ```
-- response 200 (application/json)
-  - body
-  ```JSON
-  {
-    "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
-    "available": true,
-    "name": "Audi GTX",
-    "description": "Carro massa",
-    "daily_rate": "140",
-    "license_plate": "DFG-1256",
-    "fine_amount": "100",
-    "brand": "Audi",
-    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-    "created_at": "2021-07-03T23:39:11.725Z",
-    "specifications": [
-      {
-        "id": "f11355c6-8b70-4641-a9cb-f6a7f00a3b94",
-        "name": "Direção elétrico",
-        "description": "carro com câmbio automático",
-        "created_at": "2021-06-19T23:54:11.655Z"
-      }
-    ]
-  }
-  ```
-
-#### Adicionar Imagem (Add) [POST]
-- URL: `/cars/images/:id`
-- URL Params [:id=car.id]
-- Request (application/json)
-  - body
-
-  - Headers
-  ```
-  Authorization: Bearer [access_token_admin]
-  ```
-- response 200 (application/json)
-
-#### Listar Carros Disponíveis (List) [POST]
-- URL: `/cars/available?:key=:value`
-- URL Query [brand||category_id||name]
-- Request (application/json)
-  - URL example: `/cars/available?brand=Audi`
-- response 200 (application/json)
-  - body
-  ```JSON
-  [
-    {
-      "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
-      "available": true,
-      "name": "Audi GTX",
-      "description": "Carro massa",
-      "daily_rate": "140",
-      "license_plate": "DFG-1256",
-      "fine_amount": "100",
-      "brand": "Audi",
-      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-      "created_at": "2021-07-03T23:39:11.725Z"
-    },
-    {
-      "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
-      "available": true,
-      "name": "Audi A4",
-      "description": "Carro massa",
-      "daily_rate": "140",
-      "license_plate": "DFG-4454",
-      "fine_amount": "100",
-      "brand": "Audi",
-      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-      "created_at": "2021-07-04T14:18:22.984Z"
-    },
-    {
-      "id": "f82e77a3-0aa7-47a8-b131-cf162cad30f2",
-      "available": true,
-      "name": "Audi A3",
-      "description": "Carro massa",
-      "daily_rate": "140",
-      "license_plate": "DFG-1254",
-      "fine_amount": "100",
-      "brand": "Audi",
-      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-      "created_at": "2021-07-04T14:15:36.849Z"
-    }
-  ]
-  ```
-
-### Speficications [/specifications]
-#### Nova Especificação (Create) [POST]
-- Request (application/json)
-  - body
-- response 200 (application/json)
-  - body
-
-#### Listar Especificação (List) [GET]
-- Request (application/json)
-  - body
-- response 200 (application/json)
-  - body
-
-### Categories [/categories]
-#### Novo (Create) [POST]
-> Aqui vamos receber o nome e o email do usuário
-
-- Request (application/json)
-  - Body
-  ```JSON
-  {
-    "name": "CategoryTest",
-    "description": "Category description test"
-  }
-  ```
-- Response 200 (application/json)
-  - Body
-  ```JSON
-  
-  ```
-
-#### Importar (Import) [POST]
-
-- Request ()
-  - Headers
-Response 200 (application)
-
-#### Listar (List) [GET]
-http://localhost:3333/categories
-> Aqui será listada todos as categorias
-
-O que se espera ser recebido pelo cliente nesta rota:
-```JSON
-[
-  {
-    "name": "string",
-    "description": "string"
-  },
-  {
-    "name": "string",
-    "description": "string"
-  }
-]
-```
 
 
 

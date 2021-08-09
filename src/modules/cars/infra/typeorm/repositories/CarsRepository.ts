@@ -34,7 +34,6 @@ class CarsRepository implements ICarsRepository {
       specifications,
       id,
     });
-
     this.repository.save(car);
 
     return car;
