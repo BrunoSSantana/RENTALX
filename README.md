@@ -514,7 +514,7 @@ Usuários da plataforma
 ### Rentals [/rentals]
 
 #### Criar Rental (Create) [POST]
-
+- URL: `/rentals/`
 - Request (application/json)
   - body
   ```JSON
@@ -525,19 +525,19 @@ Usuários da plataforma
   ```
   - Headers
   ```
-  Authorization: Bearer [access_token]
+  Authorization: Bearer [access_token_admin]
   ```
 
-- Response 201 (application/json)
+- Response 201 (Created)
   - body
   ```JSON
   {
-    "id": "e55252cc-8d27-43bf-b4f0-87fdf12d3cc7",
-    "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
-    "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
-    "expected_return_date": "2021-07-21T17:42:13.946Z",
-    "created_at": "2021-07-18T18:26:58.965Z",
-    "updated_at": "2021-07-18T18:26:58.965Z"
+    "id": "514babe2-cd21-4614-8d77-2a4c9348fb59",
+    "car_id": "2635d48f-d33f-44e9-b8dc-51dd6f0aee65",
+    "user_id": "86a0cfc8-2ae6-4aee-ba59-98eb015b48af",
+    "expected_return_date": "2021-10-21T17:42:13.946Z",
+    "created_at": "2021-08-10T02:05:35.748Z",
+    "updated_at": "2021-08-10T02:05:35.748Z"
   }
   ```
 - Response 401 (Unauthirized)
@@ -547,6 +547,13 @@ Usuários da plataforma
     "message": "Invalid token"
   }
   ```
+- Response 401 (Unauthirized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
+  ```
 - Response 400 (Bad Request)
   - body
   ```JSON
@@ -554,7 +561,22 @@ Usuários da plataforma
     "message": "Invalid return time!"
   }
   ```
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "Car is unavailable"
+  }
+  ```
+- Response 400 (Bad Request)
+  - body
+  ```JSON
+  {
+    "message": "There's a rental in progress for user!"
+  }
+  ```
 #### Listar por Usuário (List) [GET]
+- URL: `/rentals/user`
 - Request (application/json)
   - Headers
   ```
@@ -586,31 +608,22 @@ Usuários da plataforma
         "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
         "created_at": "2021-07-03T23:39:11.725Z"
       }
-    },
-    {
-      "id": "9e5c0e72-38f3-4a35-bdb4-55d99a9e6abd",
-      "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
-      "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
-      "start_date": "2021-07-18T18:05:53.166Z",
-      "end_date": "2021-07-18T18:15:09.535Z",
-      "expected_return_date": "2021-07-21T17:42:13.946Z",
-      "total": "340",
-      "created_at": "2021-07-18T18:05:53.166Z",
-      "updated_at": "2021-07-18T18:15:09.538Z",
-      "car": {
-        "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
-        "available": false,
-        "name": "Audi GTX",
-        "description": "Carro massa",
-        "daily_rate": "140",
-        "license_plate": "DFG-1256",
-        "fine_amount": "100",
-        "brand": "Audi",
-        "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
-        "created_at": "2021-07-03T23:39:11.725Z"
-      }
     }
   ]
+  ```
+- Response 401 (Unauthirized)
+  - body
+  ```JSON
+  {
+    "message": "Invalid token"
+  }
+  ```
+- Response 401 (Unauthirized)
+  - body
+  ```JSON
+  {
+    "message": "Token missing"
+  }
   ```
 
 #### Devolução de Carro (Update) [POST]- Request (application/json)
