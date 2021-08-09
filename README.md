@@ -108,29 +108,368 @@ Usuários da plataforma
   ```
 
 #### Listar Usuários (List) [GET] 
+- Request (application/json)
+  - Headers
+  ```
+  Authorization: Bearer [access_token]
+  ```
+- Response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "email": "admin@rentalx.com.br",
+    "name": "admin",
+    "id": "82dc4fdc-0508-4c0e-8b8f-6ddfd031eb40",
+    "avatar": "402a83ba53fee8d56d39ebe4c87bdf6c-deckfailcat.png",
+    "driver_license": "123456",
+    "avatar_url": "http://localhost:3333/avatar/402a83ba53fee8d56d39ebe4c87bdf6c-deckfailcat.png"
+  }
+  ```
+- Response 401 (application/json)
+  - body
+  ```JSON
+  {
+    "message": "Invalid Token"
+  }
+  ```
+- Response 401 (application/json)
+  - body
+  ```JSON
+  {
+    "message": "Missing Token"
+  }
+  ```
 
-#### Mudar Avatar (Update) [PATCH]
+#### Mudar Avatar do Usuário (Update) [PATCH]
+- Request (application/json)
+  - body
+- response 200 (application/json)
+  - body
 
 ### Password [/password]
-#### Solicitar mudança de email (Send) [POST]
+#### Solicitar mudança de senha (Send) [POST]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+	  "email": "useremail@example.com"
+  }
+  ```
+- response 200 (application/json)
+
 
 #### Redefenir senha (Update) [POST]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "password": "senha123"
+  }
+  ```
+- response 200 (application/json)
+
 ### Authenticate [/]
 #### Session (Create) [POST]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+	  "email": "useremail@example.com",
+	  "password": "senha123"
+  }
+  ```
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjczOTA1ODMsImV4cCI6MTYyNzU2MzM4Mywic3ViIjoiODJkYzRmZGMtMDUwOC00YzBlLThiOGYtNmRkZmQwMzFlYjQwIn0.seSEFDdQtskaSQEXgk311SjZXtjYfXdFV5vugBs11DA",
+    "user": {
+      "name": "User",
+      "email": "useremail@example.com"
+    },
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNTgzLCJleHAiOjE2Mjk5ODI1ODMsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.qgxEY1Ka3SbGfzzkKZI73WadeNgOQp3M3eJcf8ygW34"
+  }
+  ```
+
 #### Refresh Token (Update) [POST]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNTgzLCJleHAiOjE2Mjk5ODI1ODMsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.qgxEY1Ka3SbGfzzkKZI73WadeNgOQp3M3eJcf8ygW34"
+  }
+  ```
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQHJlbnRhbHguY29tLmJyIiwiaWF0IjoxNjI3MzkwNjI1LCJleHAiOjE2Mjk5ODI2MjUsInN1YiI6IjgyZGM0ZmRjLTA1MDgtNGMwZS04YjhmLTZkZGZkMDMxZWI0MCJ9.Hf44nhYy4jHDqoxIsgpRrdhBYyFuOegOzD7UeqNFemE",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjczOTA2MjUsImV4cCI6MTYyNzU2MzQyNSwic3ViIjoiODJkYzRmZGMtMDUwOC00YzBlLThiOGYtNmRkZmQwMzFlYjQwIn0.WzU9RwZA3mUxJk0Vc97aUf8ubd9p9zlwAtCDjVGAZh8"
+  }
+  ```
 
 ### Rentals [/rentals]
-#### Listar por Usuário (List) [GET]
-#### Devolução de Carro (Update) [POST]
 
-### Cars
+#### Criar Rental (Create) [POST]
+
+- Request (application/json)
+  - body
+  ```JSON
+  {
+	  "expected_return_date": "2021-07-21T17:42:13.946Z",
+	  "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c"
+  }
+  ```
+  - Headers
+  ```
+  Authorization: Bearer [access_token]
+  ```
+
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "e55252cc-8d27-43bf-b4f0-87fdf12d3cc7",
+    "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+    "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
+    "expected_return_date": "2021-07-21T17:42:13.946Z",
+    "created_at": "2021-07-18T18:26:58.965Z",
+    "updated_at": "2021-07-18T18:26:58.965Z"
+  }
+  ```
+#### Listar por Usuário (List) [GET]
+- Request (application/json)
+  - Headers
+  ```
+  Authorization: Bearer [access_token]
+  ```
+- response 200 (application/json)
+  - body
+  ```JSON
+  [
+    {
+      "id": "e55252cc-8d27-43bf-b4f0-87fdf12d3cc7",
+      "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+      "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
+      "start_date": "2021-07-18T18:26:58.965Z",
+      "end_date": null,
+      "expected_return_date": "2021-07-21T17:42:13.946Z",
+      "total": null,
+      "created_at": "2021-07-18T18:26:58.965Z",
+      "updated_at": "2021-07-18T18:26:58.965Z",
+      "car": {
+        "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+        "available": false,
+        "name": "Audi GTX",
+        "description": "Carro massa",
+        "daily_rate": "140",
+        "license_plate": "DFG-1256",
+        "fine_amount": "100",
+        "brand": "Audi",
+        "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+        "created_at": "2021-07-03T23:39:11.725Z"
+      }
+    },
+    {
+      "id": "9e5c0e72-38f3-4a35-bdb4-55d99a9e6abd",
+      "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+      "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
+      "start_date": "2021-07-18T18:05:53.166Z",
+      "end_date": "2021-07-18T18:15:09.535Z",
+      "expected_return_date": "2021-07-21T17:42:13.946Z",
+      "total": "340",
+      "created_at": "2021-07-18T18:05:53.166Z",
+      "updated_at": "2021-07-18T18:15:09.538Z",
+      "car": {
+        "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+        "available": false,
+        "name": "Audi GTX",
+        "description": "Carro massa",
+        "daily_rate": "140",
+        "license_plate": "DFG-1256",
+        "fine_amount": "100",
+        "brand": "Audi",
+        "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+        "created_at": "2021-07-03T23:39:11.725Z"
+      }
+    }
+  ]
+  ```
+
+#### Devolução de Carro (Update) [POST]- Request (application/json)
+- URL: `/rentals/devolution/:id`
+- URL Params [:id=user.id]
+- Request (application/json)
+  ```
+  /rentals/devolution/9e5c0e72-38f3-4a35-bdb4-55d99a9e6abd
+  ```
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "9e5c0e72-38f3-4a35-bdb4-55d99a9e6abd",
+    "car_id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+    "user_id": "39429398-9497-4f8f-9094-fa52c3b7406b",
+    "start_date": "2021-07-18T18:05:53.166Z",
+    "end_date": "2021-07-18T18:15:09.535Z",
+    "expected_return_date": "2021-07-21T17:42:13.946Z",
+    "total": 340,
+    "created_at": "2021-07-18T18:05:53.166Z",
+    "updated_at": "2021-07-18T18:14:59.827Z"
+  }
+  ```
+
+### Cars [/cars]
 #### Novo Carro (Create) [POST]
+- URL: `/cars`
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+    "daily_rate": 140,
+    "description": "Carro massa",
+    "fine_amount": 100,
+    "license_plate": "DFG-4454",
+    "name": "Audi A4"
+  }
+  ```
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
+    "available": true,
+    "name": "Audi A4",
+    "description": "Carro massa",
+    "daily_rate": 140,
+    "license_plate": "DFG-4454",
+    "fine_amount": 100,
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0"
+  }
+  ```
+
 #### Adicionar Especificação (Add) [POST]
+- URL: `/cars/specifications/:id`
+- URL Params [:id=car.id]
+- Request (application/json)
+  - body
+  ```JSON
+  {
+    "specifications_id": [
+      "f11355c6-8b70-4641-a9cb-f6a7f00a3b94"
+    ]
+  }
+  ```
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- response 200 (application/json)
+  - body
+  ```JSON
+  {
+    "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+    "available": true,
+    "name": "Audi GTX",
+    "description": "Carro massa",
+    "daily_rate": "140",
+    "license_plate": "DFG-1256",
+    "fine_amount": "100",
+    "brand": "Audi",
+    "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+    "created_at": "2021-07-03T23:39:11.725Z",
+    "specifications": [
+      {
+        "id": "f11355c6-8b70-4641-a9cb-f6a7f00a3b94",
+        "name": "Direção elétrico",
+        "description": "carro com câmbio automático",
+        "created_at": "2021-06-19T23:54:11.655Z"
+      }
+    ]
+  }
+  ```
+
 #### Adicionar Imagem (Add) [POST]
+- URL: `/cars/images/:id`
+- URL Params [:id=car.id]
+- Request (application/json)
+  - body
+
+  - Headers
+  ```
+  Authorization: Bearer [access_token_admin]
+  ```
+- response 200 (application/json)
+
 #### Listar Carros Disponíveis (List) [POST]
+- URL: `/cars/available?:key=:value`
+- URL Query [brand||category_id||name]
+- Request (application/json)
+  - URL example: `/cars/available?brand=Audi`
+- response 200 (application/json)
+  - body
+  ```JSON
+  [
+    {
+      "id": "65ec8cb5-dbbd-473f-8887-84b58ea9e45c",
+      "available": true,
+      "name": "Audi GTX",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-1256",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-03T23:39:11.725Z"
+    },
+    {
+      "id": "ae18ebef-eff7-4b14-9c55-c0a6aaed172a",
+      "available": true,
+      "name": "Audi A4",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-4454",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-04T14:18:22.984Z"
+    },
+    {
+      "id": "f82e77a3-0aa7-47a8-b131-cf162cad30f2",
+      "available": true,
+      "name": "Audi A3",
+      "description": "Carro massa",
+      "daily_rate": "140",
+      "license_plate": "DFG-1254",
+      "fine_amount": "100",
+      "brand": "Audi",
+      "category_id": "a62d6d0b-8c82-4aa1-ba4f-3cc2330d93a0",
+      "created_at": "2021-07-04T14:15:36.849Z"
+    }
+  ]
+  ```
+
 ### Speficications [/specifications]
 #### Nova Especificação (Create) [POST]
+- Request (application/json)
+  - body
+- response 200 (application/json)
+  - body
+
 #### Listar Especificação (List) [GET]
+- Request (application/json)
+  - body
+- response 200 (application/json)
+  - body
+
 ### Categories [/categories]
 #### Novo (Create) [POST]
 > Aqui vamos receber o nome e o email do usuário
