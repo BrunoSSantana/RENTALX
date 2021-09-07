@@ -1,5 +1,5 @@
 <p align="center">
-    <img id="rentalx" alt="Foodfy" src="./assets/RentalX.png"/>
+    <img id="rentalx" alt="Rentalx" src="./assets/RentalX.png"/>
 </p>
 
 
@@ -23,7 +23,7 @@
 
 ## Overview
 
-*Este projeto que está sendo construindo, consiste em uma API com a finalidade do gerenciamento de uma locadora de caros*
+*Este projeto foi construindo durante o Ignite - Node.js da [Rocketseat](https://rocketseat.com.br/) e consiste em uma API com a finalidade do gerenciamento de uma locadora de carros*
 
 
 ## Getting Started
@@ -697,9 +697,4 @@ Feito com :purple_heart: por Bruno Santana 👋🏽
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
 
-[⬆ Voltar ao topo](#rentalx)<br>
-
-
-<h4 align="center"> 
-	🚧 🚀 Em construção... 🚧
-</h4>
+[⬆ Voltar ao topo](#rentalx)</br>
